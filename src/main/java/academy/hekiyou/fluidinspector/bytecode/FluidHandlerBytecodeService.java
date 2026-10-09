@@ -74,6 +74,7 @@ public class FluidHandlerBytecodeService implements ILaunchPluginService {
                     }
                 }
 
+                method.maxStack += 3;
                 wasModified = true;
             } else if (method.name.equals("drain")) {
                 if (method.desc.equals(DRAIN_STACK_DESC)) {
@@ -85,6 +86,7 @@ public class FluidHandlerBytecodeService implements ILaunchPluginService {
                         }
                     }
 
+                    method.maxStack += 3;
                     wasModified = true;
                 } else if (method.desc.equals(DRAIN_INT_DESC)) {
                     method.instructions.insert(makeInsnBeginDrainInt());
@@ -95,6 +97,7 @@ public class FluidHandlerBytecodeService implements ILaunchPluginService {
                         }
                     }
 
+                    method.maxStack += 3;
                     wasModified = true;
                 }
             }
@@ -116,7 +119,6 @@ public class FluidHandlerBytecodeService implements ILaunchPluginService {
                             providerSlot = method.maxLocals++;
                             allocatedSlots = true;
                         }
-
 
                         InsnList callLog = new InsnList();
 
@@ -144,6 +146,7 @@ public class FluidHandlerBytecodeService implements ILaunchPluginService {
                         callLog.add(new VarInsnNode(Opcodes.ALOAD, sideSlot));
 
                         // inject right before the getCapability
+                        method.maxStack += 3;
                         method.instructions.insertBefore(methodCall, callLog);
                         wasModified = true;
                     }
