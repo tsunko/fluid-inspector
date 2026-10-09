@@ -1,0 +1,5 @@
+{
+  "config.jade.plugin_fluidinspector.fluid_inspector": "Fluid Inspector",
+  "fluid_inspector_tooltip": "Fluid rate:",
+  "rate_tooltip": "%.2f"
+}
