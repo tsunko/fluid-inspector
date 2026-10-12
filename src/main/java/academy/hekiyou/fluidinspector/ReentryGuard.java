@@ -1,21 +1,21 @@
 package academy.hekiyou.fluidinspector;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class ReentryGuard {
 
-    private final ThreadLocal<Integer> depth = ThreadLocal.withInitial(() -> 0);
+    private final ThreadLocal<AtomicInteger> depth = ThreadLocal.withInitial(() -> new AtomicInteger(0));
 
     public void enter() {
-        depth.set(depth.get() + 1);
+        depth.get().incrementAndGet();
     }
 
     public boolean exit() {
-        int val = depth.get() - 1;
-        depth.set(val);
-        return val == 0;
+        return depth.get().decrementAndGet() == 0;
     }
 
     public int depth() {
-        return depth.get();
+        return depth.get().get();
     }
 
 }
